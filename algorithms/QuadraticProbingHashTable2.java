@@ -51,40 +51,28 @@ public class QuadraticProbingHashTable2<AnyType>
  public boolean insert( AnyType x , String file_name)
  {
          // Insert x as active
-	 //System.out.println("Insert element is: " + x);
      int currentPos = findPos( x );
-     //System.out.println("Current positing is: " + currentPos);
-     //System.out.println("Position occupied is: " + ( isActive( currentPos ) ));
      HashEntry<AnyType> b = array[currentPos];
 	if( isActive( currentPos )) {
-//		if (x.equals("from")) System.out.println(x);
 		b.freq += 1;
-//		if (x.equals("from")) System.out.println("Pos" + currentPos);
-//		if (x.equals("from")) System.out.println(b.table.containsKey(file_name));
 		if (!b.table.containsKey(file_name)) {
-			
+
 			b.table.put(file_name, 1);}
 		else {
-			//if (x.equals("from")) System.out.println("Entered");
 			int new_freq = Integer.parseInt(b.table.get(file_name).toString());
 			if (x.equals("from")) System.out.println(new_freq);
 			b.table.replace(file_name,  new_freq+1);}
-         //System.out.println("Array is : " + array[currentPos].element + " frequency " + array[currentPos].freq); 
 
          return false;}
-     
+
 	array[currentPos] = new HashEntry<>( x, true, file_name);
-//	System.out.println(file_name);
-//	System.out.println("hashTable: "
-//            + array[currentPos].table.toString());
-//     System.out.println("hashTable: "
-//             + array[currentPos].table.toString());
+
      theSize++;
-     
+
          // Rehash; see Section 5.5
      if( ++occupied > array.length / 2 )
          rehash( file_name);
-     index_arr.add(currentPos);   
+     index_arr.add(currentPos);
      return true;
  }
 
@@ -94,7 +82,6 @@ public class QuadraticProbingHashTable2<AnyType>
  private void rehash( String file_name)
  {
      HashEntry<AnyType> [ ] oldArray = array;
-     System.out.println("**********REHASHING*********");
          // Create a new double-sized, empty table
      allocateArray( 2 * oldArray.length );
      occupied = 0;
@@ -115,7 +102,7 @@ public class QuadraticProbingHashTable2<AnyType>
  {
      int offset = 1;
      int currentPos = myhash( x );
-     
+
      while( array[ currentPos ] != null &&
              !array[ currentPos ].element.equals( x ) )
      {
@@ -124,7 +111,7 @@ public class QuadraticProbingHashTable2<AnyType>
          if( currentPos >= array.length )
              currentPos -= array.length;
      }
-     
+
      return currentPos;
  }
 
@@ -145,7 +132,7 @@ public class QuadraticProbingHashTable2<AnyType>
      else
          return false;
  }
- 
+
  /**
   * Get current size.
   * @return the size.
@@ -154,7 +141,7 @@ public class QuadraticProbingHashTable2<AnyType>
  {
      return theSize;
  }
- 
+
  /**
   * Get length of internal table.
   * @return the size.
@@ -199,7 +186,7 @@ public class QuadraticProbingHashTable2<AnyType>
      for( int i = 0; i < array.length; i++ )
          array[ i ] = null;
  }
- 
+
  private int myhash( AnyType x )
  {
      int hashVal = x.hashCode( );
@@ -210,7 +197,7 @@ public class QuadraticProbingHashTable2<AnyType>
 
      return hashVal;
  }
- 
+
  //Custom written function1
  public int return_freq( AnyType x) {
 	 int currentPos = findPos( x );
@@ -221,7 +208,7 @@ public class QuadraticProbingHashTable2<AnyType>
 	 }
 	 return -1;
  }
- 
+
  public HashEntry return_obj( AnyType x) {
 	 int currentPos = findPos( x );
 	 if (isActive( currentPos )){
@@ -229,7 +216,7 @@ public class QuadraticProbingHashTable2<AnyType>
 	 }
 	 return null;
  }
- 
+
  public static class HashEntry<AnyType>
  {
      public AnyType  element;   // the element
@@ -237,7 +224,7 @@ public class QuadraticProbingHashTable2<AnyType>
      public String filename;
      public int freq;
      public Map table;
-     public ArrayList display_file; 
+     public ArrayList display_file;
 
 
      public HashEntry( AnyType e, String file_name)
@@ -262,7 +249,7 @@ public class QuadraticProbingHashTable2<AnyType>
  private int occupied;                 // The number of occupied cells
  private int theSize;                  // Current size
  public ArrayList<Integer> index_arr = new ArrayList<>();
- 
+
  /**
   * Internal method to allocate array.
   * @param arraySize the size of the array.
@@ -315,22 +302,21 @@ public static void main( String [ ] args )
 {
 
    final int NUMS = 2000000;
-    
+
    System.out.println( "Fill in the table..." );
 
    QuadraticProbingHashTable2<String> H = new QuadraticProbingHashTable2<>( );
 
    for( int i = 0; i < NUMS; i++)
        H.insert( ""+i , "aa.txt");
-   
+
    for( int i = 0; i < NUMS; i++)
        H.contains( ""+i );
 
    for( int i = 0; i < NUMS; i++)
        H.remove( ""+i );
-   
+
    System.out.println( "Finishing... ");
 }
 
 }
-

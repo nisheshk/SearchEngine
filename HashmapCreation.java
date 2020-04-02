@@ -58,50 +58,27 @@ public class HashmapCreation {
 	         public int compare(Map.Entry<?, Integer> o1, Map.Entry<?, Integer> o2) {
 	            return o2.getValue().compareTo(o1.getValue());
 	        }});
-					
+
 	       return sorted_list;
 	    }
 
 	public static void sorting(QuadraticProbingHashTable2 obj) {
 
+		//An array that is used for the implementation of hash table
 		HashEntry[] a = obj.array;
+
+		//Index arr contains the index of array table that has words stored.
 		ArrayList b = obj.index_arr;
 
 		for (int i = 0 ; i < b.size(); i++) {
 			Map arr = a[(int) b.get(i)].table;
 			ArrayList l =merge_sort(arr);
-			//System.out.println(l);
+			//Setting the property of the value in the hash table to have display_file
+			// array type that contains the list of files in the order of frequency
+			// in the descending order
 			a[(int) b.get(i)].display_file =  l;
 		}
 
 	}
-
-	public static void display_user_option(QuadraticProbingHashTable2 QH, LinkedList<String> list) {
-		while(true) {
-			Scanner in = new Scanner(System.in);
-			System.out.println("\n\tEnter the word");
-			String word = in.nextLine();
-
-			int freq = (QH.return_freq(word));
-			HashEntry obj = null;
-
-			if (freq != -1) {
-				 obj = QH.return_obj(word);
-				 for (int l = 0; l < obj.display_file.size(); l++)
-					 System.out.println(l+1 + ". " + obj.display_file.get(l));
-
-
-			Scanner in2 = new Scanner(System.in);
-			System.out.println("\n\tClick on the link number: ");
-			int choice = in2.nextInt();
-			if (choice == 99) display_user_option(QH, list);
-			else {
-				list.addFirst(obj.display_file.get(choice-1).toString());
-
-			}
-			System.out.println("The new List is:" + list);
-			}
-		}
-		}
 
 }
